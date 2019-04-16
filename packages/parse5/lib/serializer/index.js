@@ -162,15 +162,16 @@ class Serializer {
 
 // NOTE: used in tests and by rewriting stream
 Serializer.escapeString = function(str, attrMode) {
-    str = str.replace(AMP_REGEX, '&amp;').replace(NBSP_REGEX, '&nbsp;');
-
-    if (attrMode) {
-        str = str.replace(DOUBLE_QUOTE_REGEX, '&quot;');
-    } else {
-        str = str.replace(LT_REGEX, '&lt;').replace(GT_REGEX, '&gt;');
-    }
-
     return str;
+    // str = str.replace(AMP_REGEX, '&amp;').replace(NBSP_REGEX, '&nbsp;');
+
+    // if (attrMode) {
+    //     str = str.replace(DOUBLE_QUOTE_REGEX, '&quot;');
+    // } else {
+    //     str = str.replace(LT_REGEX, '&lt;').replace(GT_REGEX, '&gt;');
+    // }
+
+    // return str;
 };
 
 module.exports = Serializer;

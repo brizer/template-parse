@@ -1,17 +1,23 @@
+
+
 <p align="center">
-    <a href="https://github.com/inikulin/parse5">
-        <img src="https://raw.github.com/inikulin/parse5/master/media/logo.png" alt="parse5" />
+    <a href="https://github.com/brizer/template-parse">
+        <img src="https://raw.github.com/inikulin/parse5/master/media/logo.png" alt="template-parse" />
     </a>
 </p>
 
+## Difference between parse5
+
+[solve this problem](https://github.com/inikulin/parse5/issues/143)
+
 <div align="center">
-<h1>parse5</h1>
+<h1>template-parse</h1>
 <i><b>HTML parser and serializer.</b></i>
 </div>
 <br>
 
 <div align="center">
-<code>npm install --save parse5</code>
+<code>npm install --save template-parse</code>
 </div>
 <br>
 

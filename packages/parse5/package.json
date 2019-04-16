@@ -1,10 +1,9 @@
 {
-    "name": "parse5",
+    "name": "template-parse",
     "description": "HTML parser and serializer.",
-    "version": "5.1.0",
-    "author": "Ivan Nikulin <ifaaan@gmail.com> (https://github.com/inikulin)",
-    "contributors": "https://github.com/inikulin/parse5/graphs/contributors",
-    "homepage": "https://github.com/inikulin/parse5",
+    "version": "1.0.0",
+    "author": "brizer <brizer@163.com> (https://github.com/brizer)",
+    "homepage": "https://github.com/brizer/template-parse",
     "keywords": [
         "html",
         "parser",
@@ -26,7 +25,7 @@
     "main": "./lib/index.js",
     "repository": {
         "type": "git",
-        "url": "git://github.com/inikulin/parse5.git"
+        "url": "git://github.com/brizer/template-parse.git"
     },
     "files": [
         "lib"
