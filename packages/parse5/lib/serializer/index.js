@@ -101,6 +101,9 @@ class Serializer {
             this.html += '>';
         }
 
+        //if it is a single closed tag,
+        //we also have to judge the node.afterTxt and node.preTxt
+
         if (
             tn !== $.AREA &&
             tn !== $.BASE &&
@@ -133,6 +136,10 @@ class Serializer {
                 if (node.afterTxt) {
                     this.html += `${node.afterTxt}`;
                 }
+            }
+        } else {
+            if (node.afterTxt) {
+                this.html += `${node.afterTxt}`;
             }
         }
     }
