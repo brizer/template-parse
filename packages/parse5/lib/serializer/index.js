@@ -115,7 +115,9 @@ class Serializer {
         for (let i = 0, attrsLength = attrs.length; i < attrsLength; i++) {
             const attr = attrs[i];
             const value = Serializer.escapeString(attr.value, true);
-
+            if (attr.hide) {
+                return;
+            }
             this.html += ' ';
 
             if (!attr.namespace) {
