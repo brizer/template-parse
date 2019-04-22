@@ -4,6 +4,9 @@
     "version": "1.0.0",
     "author": "brizer <brizer@163.com> (https://github.com/brizer)",
     "homepage": "https://github.com/brizer/template-parse",
+    "scripts": {
+        "test": "jest"
+    },
     "keywords": [
         "html",
         "parser",
@@ -29,5 +32,8 @@
     },
     "files": [
         "lib"
-    ]
+    ],
+    "devDependencies": {
+        "jest": "^24.7.1"
+    }
 }

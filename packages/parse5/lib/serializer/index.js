@@ -62,8 +62,11 @@ class Serializer {
     _serializeElement(node) {
         const tn = this.treeAdapter.getTagName(node);
         const ns = this.treeAdapter.getNamespaceURI(node);
-
-        this.html += '<' + tn;
+        if (node.preTxt) {
+            this.html += `${node.preTxt}<${tn}`;
+        } else {
+            this.html += '<' + tn;
+        }
         this._serializeAttributes(node);
         this.html += '>';
 
@@ -92,6 +95,9 @@ class Serializer {
 
             this._serializeChildNodes(childNodesHolder);
             this.html += '</' + tn + '>';
+            if (node.afterTxt) {
+                this.html += `${node.afterTxt}`;
+            }
         }
     }
 
