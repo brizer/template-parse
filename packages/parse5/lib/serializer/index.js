@@ -115,28 +115,27 @@ class Serializer {
         for (let i = 0, attrsLength = attrs.length; i < attrsLength; i++) {
             const attr = attrs[i];
             const value = Serializer.escapeString(attr.value, true);
-            if (attr.hide) {
-                return;
-            }
-            this.html += ' ';
+            if (!attr.hide) {
+                this.html += ' ';
 
-            if (!attr.namespace) {
-                this.html += attr.name;
-            } else if (attr.namespace === NS.XML) {
-                this.html += 'xml:' + attr.name;
-            } else if (attr.namespace === NS.XMLNS) {
-                if (attr.name !== 'xmlns') {
-                    this.html += 'xmlns:';
+                if (!attr.namespace) {
+                    this.html += attr.name;
+                } else if (attr.namespace === NS.XML) {
+                    this.html += 'xml:' + attr.name;
+                } else if (attr.namespace === NS.XMLNS) {
+                    if (attr.name !== 'xmlns') {
+                        this.html += 'xmlns:';
+                    }
+
+                    this.html += attr.name;
+                } else if (attr.namespace === NS.XLINK) {
+                    this.html += 'xlink:' + attr.name;
+                } else {
+                    this.html += attr.prefix + ':' + attr.name;
                 }
 
-                this.html += attr.name;
-            } else if (attr.namespace === NS.XLINK) {
-                this.html += 'xlink:' + attr.name;
-            } else {
-                this.html += attr.prefix + ':' + attr.name;
+                this.html += '="' + value + '"';
             }
-
-            this.html += '="' + value + '"';
         }
     }
 

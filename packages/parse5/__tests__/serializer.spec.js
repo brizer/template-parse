@@ -176,9 +176,9 @@ describe('test serializer', () => {
                 hehe
             </div>
             <div>
-                <p>
+                <a href="http://www.baidu.com">
                     this is me
-                </p>
+                </a>
             </div>
         </div>`);
         const expected = unpad(`
@@ -187,9 +187,9 @@ describe('test serializer', () => {
                 hehe
             </div>
             {#list list as item}
-                {#if param=='about'}<p>
+                {#if param=='about'}<a href="http://www.baidu.com">
                     this is me
-                </p>{/if}
+                </a>{/if}
             {/list}
         </div>`);
         const documentFragment = parse5.parseFragment(source);
@@ -198,7 +198,7 @@ describe('test serializer', () => {
         documentFragment.childNodes[0].childNodes[3].afterTxt = '{/list}';
         documentFragment.childNodes[0].childNodes[3].childNodes[1].preTxt = "{#if param=='about'}";
         documentFragment.childNodes[0].childNodes[3].childNodes[1].afterTxt = '{/if}';
-        documentFragment.childNodes[0].childNodes[3].childNodes[1].attrs.push({
+        documentFragment.childNodes[0].childNodes[3].childNodes[1].attrs.unshift({
             name: 'v-if',
             value: '{this.doSomething()}',
             hide: true
