@@ -62,13 +62,17 @@ class Serializer {
     _serializeElement(node) {
         const tn = this.treeAdapter.getTagName(node);
         const ns = this.treeAdapter.getNamespaceURI(node);
-        if (node.preTxt) {
-            this.html += `${node.preTxt}<${tn}`;
+        if (node.convertToTxt && node.preTxt) {
+            this.html += node.preTxt;
         } else {
-            this.html += '<' + tn;
+            if (node.preTxt) {
+                this.html += `${node.preTxt}<${tn}`;
+            } else {
+                this.html += '<' + tn;
+            }
+            this._serializeAttributes(node);
+            this.html += '>';
         }
-        this._serializeAttributes(node);
-        this.html += '>';
 
         if (
             tn !== $.AREA &&
@@ -94,9 +98,13 @@ class Serializer {
                 tn === $.TEMPLATE && ns === NS.HTML ? this.treeAdapter.getTemplateContent(node) : node;
 
             this._serializeChildNodes(childNodesHolder);
-            this.html += '</' + tn + '>';
-            if (node.afterTxt) {
-                this.html += `${node.afterTxt}`;
+            if (node.convertToTxt && node.afterTxt) {
+                this.html += node.afterTxt;
+            } else {
+                this.html += '</' + tn + '>';
+                if (node.afterTxt) {
+                    this.html += `${node.afterTxt}`;
+                }
             }
         }
     }

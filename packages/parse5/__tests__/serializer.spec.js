@@ -134,4 +134,38 @@ describe('test serializer', () => {
         const str = parse5.serialize(documentFragment);
         expect(str).toBe(expected);
     });
+
+    test('test serializer complex nest template', () => {
+        const source = unpad(`
+        <div>
+            <div>
+                hehe
+            </div>
+            <div>
+                <p>
+                    this is me
+                </p>
+            </div>
+        </div>`);
+        const expected = unpad(`
+        <div>
+            <div>
+                hehe
+            </div>
+            {#list list as item}
+                {#if param=='about'}
+                    this is me
+                {/if}
+            {/list}
+        </div>`);
+        const documentFragment = parse5.parseFragment(source);
+        documentFragment.childNodes[0].childNodes[3].convertToTxt = true;
+        documentFragment.childNodes[0].childNodes[3].preTxt = '{#list list as item}';
+        documentFragment.childNodes[0].childNodes[3].afterTxt = '{/list}';
+        documentFragment.childNodes[0].childNodes[3].childNodes[1].convertToTxt = true;
+        documentFragment.childNodes[0].childNodes[3].childNodes[1].preTxt = "{#if param=='about'}";
+        documentFragment.childNodes[0].childNodes[3].childNodes[1].afterTxt = '{/if}';
+        const str = parse5.serialize(documentFragment);
+        expect(str).toBe(expected);
+    });
 });
