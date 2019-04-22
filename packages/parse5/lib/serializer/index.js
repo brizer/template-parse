@@ -1,4 +1,5 @@
 'use strict';
+const util = require('util');
 
 const defaultTreeAdapter = require('../tree-adapters/default');
 const mergeOptions = require('../utils/merge-options');
@@ -40,12 +41,12 @@ class Serializer {
 
     //Internals
     _serializeChildNodes(parentNode) {
-        const childNodes = this.treeAdapter.getChildNodes(parentNode);
+        let childNodes = this.treeAdapter.getChildNodes(parentNode);
 
         if (childNodes) {
+            childNodes = this.formatNodeList(childNodes);
             for (let i = 0, cnLength = childNodes.length; i < cnLength; i++) {
                 const currentNode = childNodes[i];
-
                 if (this.treeAdapter.isElementNode(currentNode)) {
                     this._serializeElement(currentNode);
                 } else if (this.treeAdapter.isTextNode(currentNode)) {
@@ -59,7 +60,33 @@ class Serializer {
         }
     }
 
-    _serializeElement(node) {
+    formatNodeList(childNodes) {
+        for (let i = 0, cnLength = childNodes.length; i < cnLength; i++) {
+            let currentNode = childNodes[i];
+            const nextIndex = this.findNextElementNode(childNodes, i + 1);
+            let nextNode = i < childNodes.length ? childNodes[nextIndex] : undefined;
+            if (nextNode) {
+                //if nextNode afterTxt == preTxt, then change its preTxt with curNodes aftertTxt
+                if (nextNode.afterTxt && nextNode.preTxt && nextNode.preTxt === nextNode.afterTxt) {
+                    let txt = currentNode.afterTxt;
+                    currentNode.afterTxt = nextNode.preTxt;
+                    nextNode.afterTxt = txt;
+                    nextNode.preTxt = ' ';
+                }
+            }
+        }
+        return childNodes;
+    }
+
+    findNextElementNode(nodeLists, i) {
+        for (let len = nodeLists.length; i < len; i++) {
+            if (nodeLists[i].nodeName != '#text') {
+                return i;
+            }
+        }
+    }
+
+    _serializeElement(node, nextNode) {
         const tn = this.treeAdapter.getTagName(node);
         const ns = this.treeAdapter.getNamespaceURI(node);
         if (node.convertToTxt && node.preTxt) {
@@ -98,6 +125,7 @@ class Serializer {
                 tn === $.TEMPLATE && ns === NS.HTML ? this.treeAdapter.getTemplateContent(node) : node;
 
             this._serializeChildNodes(childNodesHolder);
+
             if (node.convertToTxt && node.afterTxt) {
                 this.html += node.afterTxt;
             } else {
