@@ -1676,7 +1676,6 @@ function genericStartTagInBody(p, token) {
 //It's faster than using dictionary.
 function startTagInBody(p, token) {
     const tn = token.tagName;
-
     switch (tn.length) {
         case 1:
             if (tn === $.I || tn === $.S || tn === $.B || tn === $.U) {
@@ -1708,7 +1707,7 @@ function startTagInBody(p, token) {
                 rbStartTagInBody(p, token);
             } else if (tn === $.RT || tn === $.RP) {
                 rtStartTagInBody(p, token);
-            } else if (tn !== $.TH && tn !== $.TD && tn !== $.TR) {
+            } else {
                 genericStartTagInBody(p, token);
             }
 

@@ -80,7 +80,7 @@ class Serializer {
 
     findNextElementNode(nodeLists, i) {
         for (let len = nodeLists.length; i < len; i++) {
-            if (nodeLists[i].nodeName != '#text') {
+            if (nodeLists[i].nodeName != '#text' && nodeLists[i].nodeName != '#comment') {
                 return i;
             }
         }
