@@ -726,9 +726,11 @@ class Tokenizer {
         } else if (cp === $.GREATER_THAN_SIGN) {
             this.state = DATA_STATE;
             this._emitCurrentToken();
-        } else if (isAsciiUpper(cp)) {
-            this.currentToken.tagName += toAsciiLowerChar(cp);
-        } else if (cp === $.NULL) {
+        }
+        // else if (isAsciiUpper(cp)) {
+        //     this.currentToken.tagName += toAsciiLowerChar(cp);
+        // }
+        else if (cp === $.NULL) {
             this._err(ERR.unexpectedNullCharacter);
             this.currentToken.tagName += unicode.REPLACEMENT_CHARACTER;
         } else if (cp === $.EOF) {
